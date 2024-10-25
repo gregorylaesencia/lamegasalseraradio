@@ -1,0 +1,438 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Player Web </title>
+<Meta Name="Title" Content="Player Web Radio Design">
+<Meta Name="Keywords" Content="Player , Radio, streaming, web radio, webradiodesign">
+
+    <link rel="stylesheet" href="audioPlayer.css" />
+    <link rel="stylesheet" href="themify-icons.css" />
+ <script>document.oncontextmenu=function() {return false;}
+document.onselectstart=function() {return false;}
+document.ondragstart=function() {return false;}</script>   
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap');
+
+
+body {
+  margin: 0;
+  padding: 0;    
+  font-family: 'Barlow', sans-serif;
+  
+  overflow-x: hidden;
+  font-weight: 400;         
+  line-height: 1.55;
+  color: #fff;
+  background-color: #141414;
+}
+.bg-video-wrap {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100vh;
+  background: url(video/20181014.png) no-repeat center center/cover;
+}
+video {
+  min-width: 100%;
+  min-height: 100vh;
+  z-index: 1;
+}
+.overlay {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: linear-gradient(45deg, rgba(0,0,0,.3) 50%, rgba(0,0,0,.7) 50%);
+  background-size: 3px 3px;
+  z-index: 2;
+}
+h1 {
+  text-align: center;
+  color: #fff;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  z-index: 3;
+  max-width: 800px;
+  width: 100%;  
+  text-transform: uppercase;
+  letter-spacing: 6px;
+  font-size: 10vw;
+  font-weight: 900;
+  text-decoration: none;
+  color: white;
+  display: inline-block;
+  background-size: 120% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+  -ms-background-clip: text;
+  -ms-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  background-image: linear-gradient(45deg, 
+                    #7794ff, 
+                    #44107A,
+                    #FF1361,
+                    #FFF800);
+  animation: .8s shake infinite alternate;
+}
+
+@keyframes shake {
+  0% { transform: skewX(-15deg); }
+  5% { transform: skewX(15deg); }
+  10% { transform: skewX(-15deg); }
+  15% { transform: skewX(15deg); }
+  20% { transform: skewX(0deg); }
+  100% { transform: skewX(0deg); }  
+}
+/*----------------------------------------------
+	21.0 Audio-player Style
+-----------------------------------------------*/
+.white-text {
+  color: #ffffff;
+}
+
+.deep-dark-bg {            
+  background: transparent;
+  -webkit-box-shadow: 0px 1px 5px rgba(0, 0, 5, 0.5);
+  box-shadow: 0px 1px 5px rgba(0, 0, 5, 0.5);
+}
+
+.audioplayer-wrap {
+  padding: 9px 0;
+  -webkit-box-shadow: 0px 5px 60px rgba(255, 255, 255, 0.06);
+  box-shadow: 0px 5px 60px rgba(255, 255, 255, 0.06);position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0; 
+  z-index: 9;
+}
+
+
+.audioplayer-wrap .ap {
+  background: transparent;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-top: 0;
+}
+
+#stats {
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+.pl-container {
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  max-width: 450px;
+  height: auto;
+  -webkit-box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.pl-container .plClose {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 0;
+  cursor: pointer;
+}
+
+.pl-container .plClose i {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.pl-container .pl-ul {
+  padding: 32px 10px;
+}
+
+.volume__bar,
+.progress__bar,
+.progress__bar:after {
+  background: #747272;
+}
+
+.ap__controls--toggle {
+  border-radius: 50%;
+  color: #ffffff;
+  -webkit-box-flex: 0 !important;
+  -ms-flex: 0 0 50px !important;
+  flex: 0 0 50px !important;
+  background: #747272 !important;
+}
+
+.ap__controls--toggle svg {
+  fill: #ffffff;
+}
+
+.is-playing .icon-play {
+  fill: #ffffff;
+}
+
+.ap__controls.is-active > svg,
+.ap__controls.is-active > svg {
+  fill: #747272;
+}
+
+.player-style-2 .ap__controls svg {
+  fill: #ffffff;
+}
+
+.player-style-2 .ap__controls.is-active > svg,
+.player-style-2 .ap__controls.is-active > svg {
+  fill: #747272;
+}
+
+.player-style-3 .volume__bar,
+.player-style-3 .progress__bar,
+.player-style-3 .progress__bar:after {
+  background: #747272;
+}
+
+.player-style-3 .ap__controls--toggle {
+  background: #747272 !important;
+}
+
+.player-style-3 .ap__controls--toggle svg {
+  fill: #ffffff;
+}
+
+.player-style-3 .ap__controls svg {
+  fill: #ffffff;
+}
+
+.player-style-3 .ap__controls.is-active > svg,
+.player-style-3 .ap__controls.is-active > svg {
+  fill: #747272;
+}
+
+.player-style-4 .ap__controls--toggle {
+  background: #445EFF !important;
+}
+
+.player-style-4 .volume__bar, .player-style-4 .progress__bar, .player-style-4 .progress__bar:after {
+  background: #445EFF;
+}
+
+.player-style-4 .ap__controls.is-active > svg {
+  fill: #445EFF;
+}
+
+.pl-list__remove {
+  display: none;
+}
+
+.pl-list__icon {
+  position: relative;
+  border: 0;
+  height: auto;
+  width: auto;
+  display: block;
+}
+
+.pl-list__icon:before {
+  position: absolute;
+  top: -7px;
+  left: 14px;
+  line-height: 1;
+  content: "\e689";
+  font-family: 'themify';
+}
+
+.eq__bar {
+  -webkit-filter: none;
+  filter: none;
+}
+
+@media all and (min-width: 1920px) {
+  .audioplayer-wrap {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    z-index: 9;
+  }
+  .audioplayer-wrap.haiti-bg {
+    background: #141436;
+  }
+  .audioplayer-wrap.deep-dark-bg {
+    background: #252525;
+  }
+  .audioplayer-space {
+    height: 90px;
+  }
+}
+
+/* BUTTON CHANGE CHANNEL */
+
+.popout {
+  position: absolute;
+  bottom: 7rem;
+  right: 3rem;
+}
+.popout .btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  outline: none;
+  user-select: none;
+  cursor: pointer;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  font-size: 32px;
+  z-index: 999;
+  background: #eee;
+  color: #00a3dd;
+  border-radius: 50%;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  transition: 0.2s opacity ease-in-out;
+}
+</style>
+</head>
+<body>
+  <div class="bg-video-wrap">
+    <video src="20221031.mp4" loop muted autoplay>
+    </video>
+    <div class="overlay">
+    </div>
+    <h1>En Vivo</h1>
+  </div> 
+    
+    <!-- Audio player -->
+    <div class="audioplayer-wrap deep-dark-bg audio-dark-bg">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <div class="ap player-style-3 white-text" id="ap" data-streaming="http://sonica1.mooo.com:8050/stream" data-type="icecast">
+              <div class="ap__inner">
+                <div class="ap__item ap__item--playback">
+                  <button class="ap__controls ap__controls--prev">
+                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#333" width="24" height="24" viewBox="0 0 24 24">
+                      <path d="M9.516 12l8.484-6v12zM6 6h2.016v12h-2.016v-12z"></path>
+                    </svg>
+                  </button>
+                  <button class="ap__controls ap__controls--toggle">
+                    <svg class="icon-play" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="36" height="36" viewBox="0 0 36 36" data-play="M 12,26 18.5,22 18.5,14 12,10 z M 18.5,22 25,18 25,18 18.5,14 z" data-pause="M 12,26 16.33,26 16.33,10 12,10 z M 20.66,26 25,26 25,10 20.66,10 z">
+                      <path d="M 12,26 18.5,22 18.5,14 12,10 z M 18.5,22 25,18 25,18 18.5,14 z"></path>
+                    </svg>
+                  </button>
+                  <button class="ap__controls ap__controls--next">
+                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#333" width="24" height="24" viewBox="0 0 24 24">
+                      <path d="M15.984 6h2.016v12h-2.016v-12zM6 18v-12l8.484 6z"></path>
+                    </svg>
+                  </button>
+                </div>
+                <div class="ap__item ap__item--track">
+                  <div class="track">
+                    <div id="stats">--</div>
+                    <div class="track__title">Queue is empty</div>
+                    <div class="track__time">
+                      <span class="track__time--current">--</span> 
+                      <span style="display:none"> / </span>
+                      <span class="track__time--duration" style="display:none">--</span> 
+                    </div> 
+                    <div class="progress-container" style="display:none">
+                      <div class="progress">
+                        <div class="progress__bar"> </div>
+                        <div class="progress__preload"></div>
+                      </div>
+                    </div>  
+                  </div>
+                </div>
+                <div class="ap__item ap__item--settings">
+                  <div class="ap__controls volume-container">
+                    <button class="volume-btn">
+                      <svg class="icon-volume-on" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#333" width="24" height="24" viewBox="0 0 24 24">
+                        <path d="M14.016 3.234q3.047 0.656 5.016 3.117t1.969 5.648-1.969 5.648-5.016 3.117v-2.063q2.203-0.656 3.586-2.484t1.383-4.219-1.383-4.219-3.586-2.484v-2.063zM16.5 12q0 2.813-2.484 4.031v-8.063q2.484 1.219 2.484 4.031zM3 9h3.984l5.016-5.016v16.031l-5.016-5.016h-3.984v-6z"></path>
+                      </svg>
+                      <svg class="icon-volume-off" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#333" width="24" height="24" viewBox="0 0 24 24">
+                        <path d="M12 3.984v4.219l-2.109-2.109zM4.266 3l16.734 16.734-1.266 1.266-2.063-2.063q-1.734 1.359-3.656 1.828v-2.063q1.172-0.328 2.25-1.172l-4.266-4.266v6.75l-5.016-5.016h-3.984v-6h4.734l-4.734-4.734zM18.984 12q0-2.391-1.383-4.219t-3.586-2.484v-2.063q3.047 0.656 5.016 3.117t1.969 5.648q0 2.25-1.031 4.172l-1.5-1.547q0.516-1.266 0.516-2.625zM16.5 12q0 0.422-0.047 0.609l-2.438-2.438v-2.203q2.484 1.219 2.484 4.031z"></path>
+                      </svg>
+                    </button>
+					<div id="html6" style="position:absolute; overflow:hidden; left:-550px; top:10px; width:450px; height:60px; z-index:2999980000"><iframe name="contenedorPlayer" class="cuadroBordeado" allow="autoplay" width="100%" height="50px" marginwidth="20" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no" src="song.php?"></iframe>
+                </div>
+				                																	<div id="html6" style="position:absolute; overflow:hidden; left:19px; top:-180px; width:218px; height:150px; z-index:1">
+  <iframe name="contenedorPlayer" class="cuadroBordeado" allow="autoplay" width="218px" height="150px" marginwidth="20" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no" src="album.php?"></iframe></div>
+                    <div class="volume">
+                      <div class="volume__track">
+                        <div class="volume__bar"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <button class="ap__controls ap__controls--repeat">
+                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#333" width="24" height="24" viewBox="0 0 24 24">
+                      <path d="M17.016 17.016v-4.031h1.969v6h-12v3l-3.984-3.984 3.984-3.984v3h10.031zM6.984 6.984v4.031h-1.969v-6h12v-3l3.984 3.984-3.984 3.984v-3h-10.031z"></path>
+                    </svg>
+                  </button>
+                  <button class="ap__controls ap__controls--playlist">
+                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#333" width="24" height="24" viewBox="0 0 24 24">
+                      <path d="M17.016 12.984l4.969 3-4.969 3v-6zM2.016 15v-2.016h12.984v2.016h-12.984zM18.984 5.016v1.969h-16.969v-1.969h16.969zM18.984 9v2.016h-16.969v-2.016h16.969z"></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>             
+<div class="popout">
+<!--<div class="btn">-->
+   <!--<img src="logo.png" width= "120px" height=" 120px" >-->
+</div>     
+</div>     
+    <!-- jQuery -->
+    <script src="jquery.min.js"></script>  
+    <script src="audioPlayer.js"></script>  
+<script>
+// TEST: image for web notifications
+var iconImage = 'images/notifyimage.png';
+
+AP.init({
+  playList: [
+    {'icon': iconImage, 'title': 'Sonica1 En Vivo', 'file': 'http://sonica1.mooo.com:8050/stream', 'type': 'shoutcast2'},
+    //{'icon': iconImage, 'title': 'Radio Carbonia', 'file': 'http://sonica1.mooo.com:8050/stream', 'type': 'icecasts'},
+    //{'icon': iconImage, 'title': 'Radio Ganzer', 'file': 'http://sonica1.mooo.com:8050/;', 'type': 'shoutcast2'}
+  ]
+});
+
+  $(".popout .btn").click(function () {   
+      console.log('Riproduci la Radio #id 2');
+      AP.play(2);
+  }); 
+  
+</script>
+    <script src="wrdStream.js"></script>   
+<script>      
+$(document).ready(function() {
+	'use strict';
+    
+  $('.plClose').on('click', function(event) {
+    var clickover1 = $(event.target);
+    var _opened1 = $('.pl-container').hasClass('h-show');
+    if(_opened1 === true && !(clickover1.is('.pl-ul'))) {
+      $('.ap__controls--playlist').trigger('click');
+    }
+  });
+   
+})
+</script>
+</body>
+</html>
